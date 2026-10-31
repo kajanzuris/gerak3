@@ -1,180 +1,98 @@
 {
   "style": "explainer",
-  "tag": "Mental Pebisnis",
-  "accent": "#e5252a",
-  "char": "boss",
+  "tag": "Tips Bisnis",
+  "accent": "#22d3ee",
+  "char": "robot",
   "charColor": "#222222",
   "scenes": [
     {
       "start": 0,
-      "title": "Ada satu hal yang *jarang* diomongin orang soal *mulai* jualan.",
+      "title": "Ada satu hal yang *jarang* *diomongin* orang",
       "small": 3,
-      "mascot": "center",
-      "pose": "wave",
+      "stage": []
+    },
+    {
+      "start": 3,
+      "title": "soal mulai *jualan.*",
+      "small": 0,
       "stage": []
     },
     {
       "start": 4.5,
-      "title": "Ini bukan cuma soal *untung*,",
-      "small": 3,
-      "mascot": "center",
-      "pose": "think",
-      "stage": [
-        {
-          "type": "stat",
-          "value": "100%",
-          "label": "Fokus Hasil",
-          "at": "untung"
-        }
-      ]
+      "title": "Ini bukan cuma soal *untung,*",
+      "small": 0,
+      "stage": []
     },
     {
       "start": 6.3,
-      "title": "tapi soal gimana rasanya *tangan* *gemetaran*",
-      "small": 2,
-      "stage": [
-        {
-          "type": "image",
-          "src": "img/img01.png",
-          "caption": "Gugup itu wajar",
-          "h": 700
-        }
-      ]
+      "title": "tapi soal gimana rasanya tangan *gemetaran*",
+      "small": 0,
+      "mascot": "center",
+      "pose": "shock",
+      "stage": []
     },
     {
       "start": 8.8,
-      "title": "pas mau *unggah* foto *produk* yang pertama.",
-      "small": 2,
-      "stage": [
-        {
-          "type": "window",
-          "title": "Upload Produk",
-          "tone": "#3b6fd8",
-          "rows": [
-            {
-              "k": "bubble",
-              "from": "user",
-              "text": "Siap jualan?"
-            },
-            {
-              "k": "note",
-              "text": "Konfirmasi Foto",
-              "items": [
-                "Upload",
-                "Batal"
-              ]
-            }
-          ]
-        }
-      ]
+      "title": "pas mau *unggah* foto produk yang *pertama.*",
+      "small": 0,
+      "stage": []
     },
     {
       "start": 12.1,
-      "title": "Kayak *tunas* yang lagi berusaha nembus *tanah* yang keras,",
-      "small": 1,
-      "stage": [
-        {
-          "type": "image",
-          "src": "img/img02.png",
-          "caption": "Proses bertumbuh",
-          "h": 700
-        }
-      ]
+      "title": "Kayak *tunas* yang lagi berusaha",
+      "small": 0,
+      "stage": []
+    },
+    {
+      "start": 14,
+      "title": "*nembus* tanah yang keras,",
+      "small": 0,
+      "stage": []
     },
     {
       "start": 15.5,
-      "title": "rasa *takut* yang kamu rasain itu *tandanya*",
-      "small": 2,
+      "title": "rasa *takut* yang kamu rasain itu",
+      "small": 0,
       "mascot": "center",
-      "pose": "shock",
-      "stage": [
-        {
-          "type": "meter",
-          "title": "Level Takut",
-          "pct": 75,
-          "label": "Tanda Tumbuh"
-        }
-      ]
+      "pose": "tremble",
+      "stage": []
     },
     {
-      "start": 18,
-      "title": "kamu lagi *bertumbuh* *lho*.",
-      "small": 2,
-      "mascot": "center",
-      "pose": "cheer",
-      "stage": [
-        {
-          "type": "bars",
-          "title": "Progress",
-          "bars": [
-            {
-              "label": "Awal",
-              "value": 20
-            },
-            {
-              "label": "Mulai",
-              "value": 50
-            },
-            {
-              "label": "Kini",
-              "value": 85
-            }
-          ],
-          "hi": 2
-        }
-      ]
+      "start": 17.6,
+      "title": "tandanya kamu lagi *bertumbuh* lho.",
+      "small": 0,
+      "stage": []
     },
     {
       "start": 19.6,
-      "title": "Coba deh, *bagikan* pesan ini ke *teman* kamu",
-      "small": 2,
-      "mascot": "center",
-      "pose": "point",
-      "stage": [
-        {
-          "type": "dialog",
-          "title": "Berbagi Pesan",
-          "text": "Klik ikon pesawat di bawah.",
-          "sub": "Support teman kamu.",
-          "buttons": [
-            "Batal",
-            "Kirim"
-          ]
-        }
-      ]
+      "title": "Coba deh, *bagikan* pesan ini ke teman kamu",
+      "small": 0,
+      "stage": []
     },
     {
       "start": 22.4,
-      "title": "yang sekiranya lagi butuh *keberanian*.",
-      "small": 3,
-      "stage": [
-        {
-          "type": "image",
-          "src": "img/img03.png",
-          "caption": "Jadilah berani",
-          "h": 700
-        }
-      ]
+      "title": "yang sekiranya lagi butuh *keberanian.*",
+      "small": 0,
+      "stage": []
     },
     {
       "start": 25,
-      "title": "Terus, *ceritain* juga dong satu *ketakutan* kamu di bawah ya.",
-      "small": 1,
-      "mascot": "center",
-      "pose": "wave",
+      "title": "Terus, *ceritain* juga dong satu ketakutan kamu di *bawah* ya.",
+      "small": 0,
       "stage": [
         {
           "type": "callout",
-          "title": "Berani Cerita?",
-          "sub": "Tulis di kolom komentar ya!",
+          "title": "Terus, ceritain juga dong",
+          "sub": "",
           "cta": ""
         }
       ]
     }
   ],
   "header": false,
-  "charStyle": "block",
-  "textColor": "#3838cc",
+  "charStyle": "sprite",
+  "charImg": "char/idle.png",
+  "charTalkImg": "char/talk.png",
   "transitions": [
     "fade",
     "slide-left",
@@ -191,7 +109,7 @@
   ],
   "bgMode": "single",
   "bgEvery": 1,
-  "theme": "clean",
+  "theme": "hud",
   "audio": {
     "music": true,
     "sfx": true,

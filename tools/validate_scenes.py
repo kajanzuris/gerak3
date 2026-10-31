@@ -55,6 +55,9 @@ for i, s in enumerate(sc):
         if not s.get('stage'): warn.append(f'adegan {i}: stage kosong (hanya teks); pakai sesekali saja')
         if s.get('mascot') is not None and s['mascot'] not in MASCOT: err.append(f"adegan {i}: mascot '{s['mascot']}' harus left/center/right")
         if s.get('pose') is not None and s['pose'] not in POSE: err.append(f"adegan {i}: pose '{s['pose']}' tidak dikenal")
+        if d.get('theme') == 'classic':
+            if s.get('bg') is not None and s['bg'] not in BG: err.append(f"adegan {i}: bg '{s['bg']}' tidak dikenal untuk tema classic ({', '.join(sorted(BG))})")
+            if s.get('prop') is not None and s['prop'] not in PROP: err.append(f"adegan {i}: prop '{s['prop']}' tidak dikenal")
         for j, b in enumerate(s.get('stage') or []):
             if b.get('type') not in STAGE: err.append(f"adegan {i}: stage[{j}] type '{b.get('type')}' tidak dikenal")
             check_at(i, f'stage[{j}]', b.get('at'), s)
@@ -100,7 +103,7 @@ for i, s in enumerate(sc):
         elif s['start'] - sc[i - 1]['start'] < 1.0: warn.append(f'adegan {i}: jarak start < 1 dtk (prepare.py akan memaksa min 0.8 dtk)')
 
 if EX:
-    if d.get('theme') not in (None, 'clean', 'hud'): err.append(f"theme '{d.get('theme')}' tidak dikenal (clean / hud)")
+    if d.get('theme') not in (None, 'clean', 'hud', 'classic'): err.append(f"theme '{d.get('theme')}' tidak dikenal (clean / hud / classic)")
     if d.get('charStyle') == 'sprite':
         for k in ('charImg', 'charTalkImg'):
             if d.get(k) and not os.path.exists(f'{D}/{d[k]}'): err.append(f"file karakter '{d[k]}' belum ada di {D}/ (upload PNG transparan ke folder itu)")

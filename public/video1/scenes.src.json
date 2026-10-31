@@ -1,144 +1,112 @@
 {
   "style": "explainer",
+  "brand": "NamaBrandSaya",
   "tag": "Mental Bisnis",
-  "accent": "#FFD700",
+  "accent": "#22d3ee",
   "char": "robot",
   "charColor": "#222222",
+  "cta": "Link-nya di bio",
   "scenes": [
     {
       "start": 0,
       "small": 3,
-      "title": "Ada satu hal yang *jarang* diomongin orang",
+      "title": "Ada satu hal yang *jarang* diomongin",
       "stage": [
         {
           "type": "window",
-          "title": "Bisnis",
-          "tone": "#3b6fd8",
+          "title": "Analisa",
+          "tone": "#22d3ee",
           "rows": [
             {
               "k": "bubble",
-              "from": "user",
-              "text": "Cara sukses jualan?"
-            },
-            {
-              "k": "bubble",
               "from": "bot",
-              "text": "Bukan cuma strategi..."
+              "text": "Apa yang jarang dibahas?"
             }
           ]
         }
-      ],
-      "bg": "night",
-      "prop": "bulb"
+      ]
     },
     {
-      "start": 2.9,
+      "start": 2.5,
       "small": 0,
-      "title": "soal *mulai* jualan.",
+      "title": "orang soal *mulai* jualan.",
       "stage": [
         {
-          "type": "image",
-          "src": "img/img01.png",
-          "at": "mulai",
-          "h": 700,
-          "frame": false,
-          "caption": "Mulai jualan"
+          "type": "stat",
+          "value": "89%",
+          "label": "Fokus Teknis"
         }
-      ],
-      "bg": "room"
+      ]
     },
     {
       "start": 4.1,
-      "small": 2,
-      "title": "Ini bukan *cuma* soal *untung*,",
+      "small": 0,
+      "title": "Ini bukan cuma soal *untung*,",
       "stage": [
         {
           "type": "compare",
           "left": {
-            "title": "Fokus Umum",
+            "title": "Materi",
             "tone": "#3b6fd8",
             "items": [
-              "Target Omzet",
-              "Strategi Iklan"
+              "Cuan",
+              "Omzet"
             ]
           },
           "right": {
-            "title": "Realita",
-            "tone": "#e5252a",
+            "title": "Mental",
+            "tone": "#1f9d8a",
             "items": [
-              "Mentalitas",
-              "Rasa Takut"
+              "Keberanian"
             ]
           }
         }
-      ],
-      "bg": "stage",
-      "prop": "crowd"
+      ]
     },
     {
       "start": 5.9,
-      "small": 3,
-      "title": "tapi soal gimana rasanya *tangan* gemetaran",
+      "small": 0,
+      "title": "tapi soal gimana rasanya tangan *gemetaran*",
+      "stage": [
+        {
+          "type": "image",
+          "src": "img/img01.png",
+          "caption": "Rasa gugup",
+          "at": "gemetaran",
+          "h": 700,
+          "frame": false
+        }
+      ]
+    },
+    {
+      "start": 9.2,
+      "small": 0,
+      "title": "pas mau *unggah* foto produk yang pertama.",
       "stage": [
         {
           "type": "image",
           "src": "img/img02.png",
-          "at": "tangan",
+          "caption": "Langkah pertama",
+          "at": "unggah",
           "h": 700,
-          "frame": false,
-          "caption": "Tangan gemetar"
+          "frame": false
         }
-      ],
-      "bg": "dusk"
-    },
-    {
-      "start": 8.4,
-      "small": 2,
-      "title": "pas mau unggah *foto* produk",
-      "stage": [
-        {
-          "type": "image",
-          "src": "img/img03.png",
-          "at": "foto",
-          "h": 700,
-          "frame": false,
-          "caption": "Unggah produk"
-        }
-      ],
-      "bg": "day",
-      "prop": "laptop"
-    },
-    {
-      "start": 10.4,
-      "small": 0,
-      "title": "yang *pertama.*",
-      "stage": [
-        {
-          "type": "stat",
-          "value": "Ke-1",
-          "label": "Langkah tersulit"
-        }
-      ],
-      "bg": "office",
-      "mascot": "right",
-      "pose": "idle"
+      ]
     },
     {
       "start": 11.3,
-      "small": 1,
+      "small": 0,
       "title": "Kayak *tunas* yang lagi berusaha",
       "stage": [
         {
           "type": "image",
-          "src": "img/img04.png",
+          "src": "img/img03.png",
+          "caption": "Awal pertumbuhan",
           "at": "tunas",
           "h": 700,
-          "frame": false,
-          "caption": "Tunas kecil"
+          "frame": false
         }
-      ],
-      "bg": "dawn",
-      "prop": "orb"
+      ]
     },
     {
       "start": 13.4,
@@ -146,159 +114,132 @@
       "title": "nembus *tanah* yang keras,",
       "stage": [
         {
-          "type": "image",
-          "src": "img/img05.png",
-          "at": "tanah",
-          "h": 700,
-          "frame": false,
-          "caption": "Tanah keras"
+          "type": "meter",
+          "title": "Resistensi",
+          "pct": 40,
+          "label": "Menembus Batas"
         }
-      ],
-      "bg": "night"
+      ]
     },
     {
       "start": 15.1,
-      "small": 2,
+      "small": 0,
       "title": "rasa *takut* yang kamu rasain",
       "stage": [
         {
-          "type": "meter",
-          "title": "Level Grogi",
-          "pct": 85,
-          "label": "Sangat Tinggi"
+          "type": "callout",
+          "title": "Validasi",
+          "sub": "Wajar Merasa Takut",
+          "cta": "Lanjut Saja"
         }
-      ],
-      "bg": "room",
-      "prop": "shadow",
-      "mascot": "left",
-      "pose": "think"
+      ]
     },
     {
       "start": 17.2,
-      "small": 3,
-      "title": "itu tandanya kamu lagi *bertumbuh,* lho.",
+      "small": 0,
+      "title": "itu tandanya kamu lagi *bertumbuh*, lho.",
       "stage": [
         {
           "type": "bars",
-          "title": "Proses Diri",
+          "title": "Proses",
           "bars": [
             {
-              "label": "Nyaman",
-              "value": 30
+              "label": "Diam",
+              "value": 10
             },
             {
               "label": "Takut",
-              "value": 90
+              "value": 45
             },
             {
               "label": "Tumbuh",
-              "value": 95
+              "value": 90
             }
           ],
           "hi": 2
         }
-      ],
-      "bg": "stage",
-      "mascot": "right",
-      "pose": "cheer"
+      ]
     },
     {
       "start": 19.7,
-      "small": 2,
+      "small": 0,
       "title": "Coba deh *bagikan* pesan ini",
       "stage": [
         {
-          "type": "callout",
-          "title": "Kirim Video",
-          "sub": "Support teman kamu",
-          "cta": "Klik Bagikan"
+          "type": "files",
+          "title": "Kirim Ke",
+          "groups": [
+            "WA",
+            "IG",
+            "TikTok"
+          ]
         }
-      ],
-      "bg": "dusk",
-      "prop": "trophy",
-      "mascot": "left",
-      "pose": "idle"
+      ]
     },
     {
       "start": 21.5,
-      "small": 3,
-      "title": "ke teman kamu yang sekiranya lagi *butuh*",
+      "small": 0,
+      "title": "ke *teman* kamu yang sekiranya",
       "stage": [
         {
-          "type": "files",
-          "title": "Daftar Teman",
-          "groups": [
-            "Sahabat",
-            "Kolega",
-            "Keluarga"
+          "type": "dialog",
+          "title": "Kirim Pesan",
+          "text": "Semangat ya buat jualannya!",
+          "sub": "Kirim sekarang?",
+          "buttons": [
+            "Nanti",
+            "Kirim"
           ]
         }
-      ],
-      "bg": "day",
-      "mascot": "right",
-      "pose": "point"
+      ]
     },
     {
-      "start": 24,
+      "start": 23.3,
       "small": 0,
-      "title": "*keberanian.*",
+      "title": "lagi butuh *keberanian*.",
       "stage": [
         {
-          "type": "image",
-          "src": "img/img06.png",
-          "caption": "Stay Brave",
-          "h": 700,
-          "frame": false
+          "type": "callout",
+          "title": "Support",
+          "sub": "Kamu Gak Sendiri",
+          "cta": "Bagikan"
         }
-      ],
-      "bg": "office",
-      "prop": "confetti"
+      ]
     },
     {
       "start": 24.5,
-      "small": 1,
-      "title": "Terus, *ceritain* juga dong satu *ketakutan* kamu",
+      "small": 0,
+      "title": "Terus, *ceritain* juga dong",
       "stage": [
         {
           "type": "window",
-          "title": "Input",
-          "tone": "#1f9d8a",
+          "title": "Komentar",
+          "tone": "#e5252a",
           "rows": [
             {
               "k": "input",
               "text": "Ketakutan saya adalah..."
-            },
-            {
-              "k": "buttons",
-              "items": [
-                "Kirim Komentar"
-              ]
             }
           ]
         }
-      ],
-      "bg": "dawn"
+      ]
     },
     {
-      "start": 27.7,
+      "start": 26.3,
       "small": 0,
-      "title": "di bawah *ya.*",
+      "title": "satu *ketakutan* kamu di bawah ya.",
       "stage": [
         {
           "type": "callout",
-          "title": "Tulis Sekarang",
-          "sub": "Mari saling menguatkan",
+          "title": "Diskusi",
+          "sub": "Tulis di kolom komentar",
           "cta": ""
         }
-      ],
-      "bg": "night",
-      "prop": "fork",
-      "mascot": "left",
-      "pose": "cheer"
+      ]
     }
   ],
-  "header": false,
-  "charStyle": "stick",
+  "header": true,
+  "charStyle": "block",
   "transitions": [
     "fade",
     "slide-left",
@@ -306,17 +247,11 @@
   ],
   "transitionsMode": "cycle",
   "backgrounds": [
-    "night",
-    "room",
-    "stage",
-    "dusk",
-    "day",
-    "office",
-    "dawn"
+    "cream"
   ],
-  "bgMode": "auto",
-  "bgEvery": 1,
-  "theme": "classic",
+  "bgMode": "single",
+  "bgEvery": 3,
+  "theme": "hud",
   "audio": {
     "music": true,
     "sfx": true,

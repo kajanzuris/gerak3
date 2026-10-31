@@ -178,6 +178,7 @@ if EXPLAINER and USE_BLOCKSFX:                                                  
     for si, s in enumerate(scenes):
         ws_s = [w for w in words if w['s'] == si]
         for bi, b in enumerate(s.get('stage') or []):
+            if b.get('hold'): continue                                               # gambar lanjutan: tidak ada bunyi muncul
             at = b.get('at'); t0 = s['start'] + .05 + bi * .35                       # sama dengan default di Explainer.tsx
             if isinstance(at, (int, float)): t0 = s['start'] + at
             elif isinstance(at, str):

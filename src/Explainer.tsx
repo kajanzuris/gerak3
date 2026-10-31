@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, Audio, Img, spring, staticFile, useCurrentFrame, useVideoConfig } from "remotion";
 import { loadFont } from "@remotion/google-fonts/Poppins";
-import { Block, Stick } from "./VectorStory";
+import { Block, Stick, Bg, Prop } from "./VectorStory";
 import type { StoryProps } from "./VectorStory";
 
 // Tema "explainer": latar krem berbintik, header merek, judul 2 tingkat (kecil + besar) yang muncul per kata
@@ -114,6 +114,8 @@ type Item = {
   caption?: string;
   h?: number;
   frame?: boolean;
+  fit?: "cover" | "contain";
+  hold?: boolean;
   at?: string | number;
   title?: string;
   tone?: string;
@@ -131,10 +133,10 @@ type Item = {
   n?: number;
   groups?: string[];
 };
-type Scene = { title: string; start: number; small?: number; pose?: string; mascot?: "left" | "center" | "right"; stage?: Item[]; transition?: string; bg?: string; label?: string };
+type Scene = { title: string; start: number; small?: number; pose?: string; mascot?: "left" | "center" | "right"; stage?: Item[]; transition?: string; bg?: string; label?: string; prop?: string };
 type Data = {
   durationInFrames: number;
-  theme?: "clean" | "hud";
+  theme?: "clean" | "hud" | "classic";
   brand?: string;
   tag?: string;
   accent?: string;
@@ -159,7 +161,7 @@ type Data = {
 const clamp01 = (x: number) => Math.max(0, Math.min(1, x));
 const norm = (w: string) => w.toLowerCase().replace(/[^a-z0-9]/g, "");
 
-type Cx = { ws: W[]; base: number; t: number; accent: string; name: string; ink: string; mute: string; theme: "clean" | "hud" };
+type Cx = { ws: W[]; base: number; t: number; accent: string; name: string; ink: string; mute: string; theme: "clean" | "hud" | "classic" };
 const Ctx = React.createContext<Cx>({ ws: [], base: 0, t: 0, accent: C.red, name: "", ink: C.ink, mute: C.mute, theme: "clean" });
 
 // waktu (detik, absolut) kapan sebuah elemen muncul: kata tertentu di title, detik relatif, atau default
@@ -463,7 +465,8 @@ const StatView: React.FC<{ b: Item; t0: number }> = ({ b, t0 }) => {
 
 const ImageView: React.FC<{ b: Item; t0: number }> = ({ b, t0 }) => {
   const { t, name, mute: pageMute } = React.useContext(Ctx);
-  const zoom = 1 + 0.06 * clamp01((t - t0) / 6); // zoom pelan supaya gambar diam tidak terasa mati
+  const still = b.fit === "contain" || b.hold; // screenshot / gambar yang bertahan antar adegan: jangan di-zoom
+  const zoom = still ? 1 : 1 + 0.06 * clamp01((t - t0) / 6); // zoom pelan supaya gambar diam tidak terasa mati
   if (b.frame === false) {
     // gambar transparan (produk/karakter): tanpa kartu, utuh (contain), melayang pelan + bayangan
     return (
@@ -481,7 +484,7 @@ const ImageView: React.FC<{ b: Item; t0: number }> = ({ b, t0 }) => {
     <Appear t0={t0}>
       <div style={{ ...card, padding: 14 }}>
         <div style={{ height: b.h || 640, borderRadius: 22, overflow: "hidden", background: V.soft }}>
-          {b.src ? <Img src={staticFile(`${name}/${b.src}`)} style={{ width: "100%", height: "100%", objectFit: "cover", transform: `scale(${zoom})` }} /> : null}
+          {b.src ? <Img src={staticFile(`${name}/${b.src}`)} style={{ width: "100%", height: "100%", objectFit: b.fit === "contain" ? "contain" : "cover", transform: `scale(${zoom})` }} /> : null}
         </div>
         {b.caption ? <div style={{ fontSize: 28, fontWeight: 600, textAlign: "center", margin: "14px 0 4px", color: V.mute }}>{b.caption}</div> : null}
       </div>
@@ -544,7 +547,7 @@ const BarsView: React.FC<{ b: Item; t0: number }> = ({ b, t0 }) => {
 
 const StageItem: React.FC<{ b: Item; i: number }> = ({ b, i }) => {
   const cx = React.useContext(Ctx);
-  const t0 = resolveT(b.at, cx, 0.05 + i * 0.35);
+  const t0 = b.hold ? -100 : resolveT(b.at, cx, 0.05 + i * 0.35); // hold = lanjutan dari adegan sebelumnya: langsung tampil, tanpa animasi masuk
   switch (b.type) {
     case "window": return <WindowView b={b} t0={t0} />;
     case "compare": return <CompareView b={b} t0={t0} />;
@@ -707,6 +710,49 @@ const HoloRing: React.FC<{ x: number; y: number; f: number; accent: string }> = 
   </svg>
 );
 
+// ================= TEMA KLASIK (stickman + latar kota/ruang, caption di atas) =================
+const CLASSIC_BGS = ["dawn", "dusk", "room", "stage", "night", "day", "office"];
+const CLASSIC_PROPS = ["bulb", "confetti", "crowd", "fork", "laptop", "money", "orb", "phone", "shadow", "think", "trophy"];
+const classicVars = (accent: string) => ({
+  "--card-bg": "rgba(14,18,38,.88)",
+  "--card-line": accent,
+  "--card-ink": "#ffffff",
+  "--card-shadow": "0 10px 30px rgba(0,0,0,.35)",
+  "--card-radius": "44px",
+  "--soft": "rgba(255,255,255,.14)",
+  "--row": "rgba(255,255,255,.09)",
+  "--row2": "rgba(255,255,255,.09)",
+  "--note-bg": "rgba(255,209,102,.16)",
+  "--note-line": "rgba(255,209,102,.5)",
+  "--btn-ghost": "rgba(255,255,255,.16)",
+  "--mute": "#c4c9d8",
+  "--bar": "rgba(255,255,255,.35)",
+  "--callout-bg": "linear-gradient(180deg,rgba(14,18,38,.92),rgba(40,30,70,.85))",
+}) as unknown as React.CSSProperties;
+
+const ClassicCaption: React.FC<{ words: W[]; t: number; accent: string }> = ({ words, t, accent }) => {
+  const frame = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const groups = groupsOf(words);
+  let gi = -1;
+  for (let i = 0; i < groups.length; i++) if (t >= groups[i][0].a - 0.05) gi = i;
+  if (gi < 0) return null;
+  const g = groups[gi];
+  if (t > g[g.length - 1].b + 0.6) return null;
+  const sp = clamp01(spring({ frame: frame - Math.round(g[0].a * fps), fps, config: { damping: 13, stiffness: 190 } }));
+  return (
+    <div style={{ position: "absolute", left: 70, right: 70, top: 300, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "4px 22px", padding: "26px 36px", borderRadius: 48, background: "rgba(10,12,24,.62)", transform: `scale(${0.88 + 0.12 * sp})`, opacity: 0.35 + 0.65 * sp }}>
+      {g.map((w, i) => {
+        const active = t >= w.a && t < w.b;
+        const spoken = t >= w.b;
+        return (
+          <span key={i} style={{ display: "inline-block", fontWeight: 800, fontSize: w.hl ? 90 : 74, lineHeight: 1.25, color: w.hl ? accent : "#fff", opacity: spoken || active ? 1 : 0.55, transform: `scale(${active ? 1.12 : 1})`, textShadow: "0 4px 18px rgba(0,0,0,.7)" }}>{w.w}</span>
+        );
+      })}
+    </div>
+  );
+};
+
 const fallbackWords = (title: string, start: number, idx: number): W[] =>
   title.split(" ").filter(Boolean).map((raw, i) => ({ w: raw.replace(/\*/g, ""), hl: raw.includes("*"), a: start + i * 0.25, b: start + i * 0.25 + 0.25, s: idx }));
 
@@ -717,7 +763,8 @@ export const Explainer: React.FC<StoryProps> = ({ name, data: d }) => {
   const data = d as unknown as Data;
   const t = frame / fps;
   const hud = data.theme === "hud";
-  const accent = data.accent || (hud ? HUD_CYAN : C.red);
+  const classic = data.theme === "classic";
+  const accent = data.accent || (hud ? HUD_CYAN : classic ? "#FFD700" : C.red);
 
   let idx = 0;
   data.scenes.forEach((s, i) => { if (t >= s.start - 1e-6) idx = i; });
@@ -729,7 +776,7 @@ export const Explainer: React.FC<StoryProps> = ({ name, data: d }) => {
   const hasMascot = !!sc.mascot;
   const persist = hasMascot && prev?.mascot === sc.mascot;
   const ent = persist ? 1 : clamp01(spring({ frame: frame - Math.round(base * fps), fps, config: { damping: 14 } }));
-  const mx = sc.mascot === "left" ? 250 : sc.mascot === "right" ? 830 : 540;
+  const mx = classic ? (sc.mascot === "left" ? 300 : sc.mascot === "right" ? 780 : 540) : sc.mascot === "left" ? 250 : sc.mascot === "right" ? 830 : 540;
   const flip = sc.mascot === "right";
   const ctaStart = durationInFrames - Math.round(2 * fps);
 
@@ -743,12 +790,20 @@ export const Explainer: React.FC<StoryProps> = ({ name, data: d }) => {
     return BG_PRESETS[data.bgMode === "auto" ? bgNames[Math.floor(i / every) % bgNames.length] : bgNames[0]];
   };
   const preset = presetFor(idx);
-  const ink = data.textColor || (hud ? "#ffffff" : preset.ink);
+  const cList = (data.backgrounds || []).filter((n) => CLASSIC_BGS.includes(n));
+  const cBgFor = (i: number): string => {
+    const own = data.scenes[i].bg;
+    if (own && CLASSIC_BGS.includes(own)) return own;
+    const pool = cList.length ? cList : CLASSIC_BGS;
+    return pool[Math.floor(i / Math.max(1, data.bgEvery || 2)) % pool.length];
+  };
+  const ink = data.textColor || (hud || classic ? "#ffffff" : preset.ink);
 
   // jenis transisi masuk per adegan: "transition" di adegan, atau dari daftar global (berurutan / acak)
   const tlist = (data.transitions || []).filter((x) => TRANS.includes(x));
   const tkindFor = (i: number): string => {
     if (i === 0) return "none";
+    if (data.scenes[i].stage?.[0]?.hold) return "none"; // gambar yang bertahan: jangan digeser
     const own = data.scenes[i].transition;
     if (own && TRANS.includes(own)) return own;
     if (!tlist.length) return "none";
@@ -759,9 +814,10 @@ export const Explainer: React.FC<StoryProps> = ({ name, data: d }) => {
   const inTrans = idx > 0 && tkind !== "none" && t - base < TD;
   const pair = transPair(tkind, (t - base) / TD);
 
-  const hasHeader = data.header !== false && (hud || !!(data.brand || data.tag));
+  const hasHeader = !classic && data.header !== false && (hud || !!(data.brand || data.tag));
   const dy = hasHeader ? 0 : -80;
-  const feet = hud ? 1470 : 1800;
+  const feet = hud ? 1470 : classic ? 1500 : 1800;
+  const mScale = classic ? 0.85 : 0.62;
   const wsMain = (data.words || []).filter((w) => w.s === idx);
   const hlWord = (wsMain.find((w) => w.hl) || wsMain[0] || { w: "" }).w.replace(/[.,!?;:"'*]/g, "").toUpperCase();
   const hudLabel = sc.label || `${(data.tag || "STATUS").toUpperCase()}: ${hlWord}`;
@@ -778,12 +834,17 @@ export const Explainer: React.FC<StoryProps> = ({ name, data: d }) => {
     const hm = !!s.mascot;
     const p = presetFor(i);
     return (
-      <Ctx.Provider key={"L" + i} value={{ ws: wsI, base: s.start, t, accent, name, ink: data.textColor || (hud ? "#ffffff" : p.ink), mute: data.textColor || (hud ? "#9fb3d1" : p.mute), theme: hud ? "hud" : "clean" }}>
+      <Ctx.Provider key={"L" + i} value={{ ws: wsI, base: s.start, t, accent, name, ink: data.textColor || (hud ? "#ffffff" : p.ink), mute: data.textColor || (hud ? "#9fb3d1" : classic ? "#c4c9d8" : p.mute), theme: hud ? "hud" : classic ? "classic" : "clean" }}>
         <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 1920, ...wrap }}>
-          <div style={{ position: "absolute", left: 50, right: 50, top: solo ? 420 : hud ? 150 : 190 + dy, height: solo ? 800 : 300, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 10, textAlign: "center" }}>
-            <Headline ws={wsI} small={sm} solo={solo} />
-          </div>
-          <div style={{ position: "absolute", left: 60, right: 60, top: hud ? (hm ? 480 : 500) : (hm ? 500 : 520) + dy, bottom: hud ? (hm ? 790 : 440) : (hm ? 520 : 200), display: "flex", flexDirection: "column", justifyContent: "center", gap: 28 }}>
+          {classic ? null : (
+            <div style={{ position: "absolute", left: 50, right: 50, top: solo ? 420 : hud ? 150 : 190 + dy, height: solo ? 800 : 300, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 10, textAlign: "center" }}>
+              <Headline ws={wsI} small={sm} solo={solo} />
+            </div>
+          )}
+          {classic && s.prop && CLASSIC_PROPS.includes(s.prop) && typeof Prop !== "undefined" ? (
+            <Prop kind={s.prop} f={frame} hx={s.mascot === "left" ? 300 : s.mascot === "right" ? 780 : 540} accent={accent} />
+          ) : null}
+          <div style={{ position: "absolute", left: 60, right: 60, top: classic ? 540 : hud ? (hm ? 480 : 500) : (hm ? 500 : 520) + dy, bottom: classic ? (hm ? 920 : 300) : hud ? (hm ? 790 : 440) : (hm ? 520 : 200), display: "flex", flexDirection: "column", justifyContent: "center", gap: 28 }}>
             {(s.stage || []).map((b, bi) => <StageItem key={bi} b={b} i={bi} />)}
           </div>
         </div>
@@ -794,10 +855,20 @@ export const Explainer: React.FC<StoryProps> = ({ name, data: d }) => {
   const prevPreset = idx > 0 ? presetFor(idx - 1) : preset;
 
   return (
-    <AbsoluteFill style={{ ...(hud ? { backgroundColor: "#030a1a", ...HUD_VARS } : bgStyle(preset)), fontFamily: FONT, color: ink }}>
+    <AbsoluteFill style={{ ...(hud ? { backgroundColor: "#030a1a", ...HUD_VARS } : classic ? { backgroundColor: "#000", ...classicVars(accent) } : bgStyle(preset)), fontFamily: FONT, color: ink }}>
       <Audio src={staticFile(name + "/mix.wav")} />
       {hud ? <HudBackdrop f={frame} accent={accent} /> : null}
-      {!hud && inTrans && prevPreset !== preset ? (
+      {classic && typeof Bg !== "undefined" ? (
+        <>
+          <Bg type={cBgFor(idx)} f={frame} p={clamp01((t - base) / 3)} />
+          {inTrans && idx > 0 && cBgFor(idx - 1) !== cBgFor(idx) ? (
+            <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 1920, opacity: 1 - easeIO(clamp01((t - base) / TD)) }}>
+              <Bg type={cBgFor(idx - 1)} f={frame} p={1} />
+            </div>
+          ) : null}
+        </>
+      ) : null}
+      {!hud && !classic && inTrans && prevPreset !== preset ? (
         <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 1920, ...bgStyle(prevPreset), opacity: 1 - easeIO(clamp01((t - base) / TD)) }} />
       ) : null}
       {inTrans ? layer(idx - 1, pair.out) : null}
@@ -808,7 +879,7 @@ export const Explainer: React.FC<StoryProps> = ({ name, data: d }) => {
         <SpriteMascot name={name} img={data.charImg} talkImg={data.charTalkImg} x={mx} flip={flip} pose={poseName} f={frame} talk={talk ?? 0} ent={ent} feet={feet} />
       ) : hasMascot ? (
         <svg viewBox="0 0 1080 1920" width={1080} height={1920} style={{ position: "absolute", left: 0, top: 0, filter: hud ? `drop-shadow(0 0 14px ${accent}99)` : undefined }}>
-          <g transform={`translate(${mx},${feet + (1 - ent) * 420}) scale(${flip ? -0.62 : 0.62},0.62)`}>
+          <g transform={`translate(${mx},${feet + (1 - ent) * 420}) scale(${flip ? -mScale : mScale},${mScale})`}>
             <ellipse cx={0} cy={4} rx={100} ry={14} fill="#000" opacity={0.15} />
             {cstyle === "stick" && typeof Stick !== "undefined" ? (
               <Stick pose={poseName as Pose} color={data.charColor || "#222"} f={frame} type={data.char} talk={talk} />
@@ -819,6 +890,10 @@ export const Explainer: React.FC<StoryProps> = ({ name, data: d }) => {
         </svg>
       ) : null}
       {hud ? <HudCaption words={data.words || []} t={t} accent={accent} /> : null}
+      {classic ? <ClassicCaption words={data.words || []} t={t} accent={accent} /> : null}
+      {classic && data.header !== false && data.brand ? (
+        <div style={{ position: "absolute", left: 60, bottom: 330, color: "rgba(255,255,255,0.45)", fontSize: 34, fontFamily: FONT }}>{data.brand}</div>
+      ) : null}
       {data.cta && frame >= ctaStart ? (
         <AbsoluteFill style={{ alignItems: "center", justifyContent: "flex-end", paddingBottom: 110 }}>
           <div style={{ padding: "22px 52px", borderRadius: 60, background: accent, color: "#fff", fontWeight: 800, fontSize: 46, fontFamily: FONT }}>{data.cta}</div>

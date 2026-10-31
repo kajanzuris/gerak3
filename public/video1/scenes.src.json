@@ -1,100 +1,157 @@
 {
   "style": "explainer",
-  "brand": "NamaBrandSaya",
-  "tag": "dasar · AI agent",
-  "accent": "#e5252a",
-  "char": "robot",
+  "tag": "Mental Bisnis",
+  "accent": "#FFD700",
+  "char": "boss",
   "charColor": "#222222",
-  "cta": "Link-nya di bio",
   "scenes": [
     {
       "start": 0,
       "title": "Ada satu hal yang jarang diomongin orang soal mulai *jualan.*",
       "small": 3,
       "mascot": "center",
-      "pose": "point",
+      "pose": "wave",
+      "bg": "dawn",
+      "prop": "bulb",
       "stage": []
     },
     {
-      "start": 4.1,
+      "start": 4.5,
       "title": "Ini bukan cuma soal *untung,*",
       "small": 3,
       "mascot": "left",
-      "stage": []
+      "pose": "idle",
+      "bg": "office",
+      "prop": "money",
+      "stage": [
+        {
+          "type": "stat",
+          "value": "100%",
+          "label": "Fokus Profit",
+          "at": "untung"
+        }
+      ]
     },
     {
-      "start": 5.9,
-      "title": "tapi soal gimana rasanya *tangan* *gemetaran*",
+      "start": 6.3,
+      "title": "tapi soal gimana rasanya tangan *gemetaran*",
       "small": 2,
+      "mascot": "right",
+      "pose": "tremble",
+      "bg": "room",
+      "prop": "phone",
       "stage": []
     },
     {
-      "start": 8.4,
-      "title": "pas mau *unggah* *foto* produk yang pertama.",
+      "start": 8.8,
+      "title": "pas mau unggah *foto* produk yang pertama.",
       "small": 2,
-      "stage": []
+      "bg": "stage",
+      "prop": "laptop",
+      "stage": [
+        {
+          "type": "image",
+          "src": "img/img01.png",
+          "caption": "Langkah pertama",
+          "h": 700,
+          "frame": false
+        }
+      ]
     },
     {
-      "start": 11.3,
+      "start": 12.1,
       "title": "Kayak *tunas* yang lagi berusaha nembus tanah yang keras,",
       "small": 2,
-      "stage": []
-    },
-    {
-      "start": 15.1,
-      "title": "rasa *takut* yang kamu rasain itu tandanya",
-      "small": 3,
-      "mascot": "right",
-      "stage": []
-    },
-    {
-      "start": 18,
-      "title": "kamu lagi *bertumbuh,* lho.",
-      "small": 2,
-      "mascot": "left",
-      "stage": []
-    },
-    {
-      "start": 19.7,
-      "title": "Coba deh *bagikan* pesan ini ke teman kamu",
-      "small": 2,
-      "stage": []
-    },
-    {
-      "start": 22.6,
-      "title": "yang sekiranya lagi butuh *keberanian.*",
-      "small": 2,
-      "stage": []
-    },
-    {
-      "start": 24.5,
-      "title": "Terus, ceritain juga dong satu *ketakutan* kamu di bawah ya.",
-      "small": 3,
+      "bg": "dusk",
       "stage": [
         {
           "type": "callout",
-          "title": "Terus, ceritain juga dong",
-          "sub": "NamaBrandSaya",
+          "title": "Butuh Perjuangan",
+          "sub": "",
           "cta": ""
         }
+      ],
+      "mascot": "center",
+      "pose": "cheer"
+    },
+    {
+      "start": 15.5,
+      "title": "rasa *takut* yang kamu rasain itu tandanya kamu lagi *bertumbuh* lho.",
+      "small": 2,
+      "mascot": "center",
+      "pose": "cheer",
+      "bg": "night",
+      "prop": "orb",
+      "stage": [
+        {
+          "type": "meter",
+          "title": "Progres Diri",
+          "pct": 75,
+          "label": "Sedang Tumbuh",
+          "at": "bertumbuh"
+        }
       ]
+    },
+    {
+      "start": 19.6,
+      "title": "Coba deh, *bagikan* pesan ini ke teman kamu",
+      "small": 2,
+      "bg": "office",
+      "stage": [
+        {
+          "type": "dialog",
+          "title": "Bagikan Pesan",
+          "text": "Kirim ke teman yang butuh semangat ini sekarang?",
+          "sub": "Inspirasi Hari Ini",
+          "buttons": [
+            "Nanti",
+            "Kirim"
+          ],
+          "at": "bagikan"
+        }
+      ],
+      "mascot": "center",
+      "pose": "point"
+    },
+    {
+      "start": 22.4,
+      "title": "yang sekiranya lagi butuh *keberanian.*",
+      "small": 2,
+      "mascot": "left",
+      "pose": "point",
+      "bg": "day",
+      "prop": "trophy",
+      "stage": []
+    },
+    {
+      "start": 25,
+      "title": "Terus, ceritain juga dong satu *ketakutan* kamu di bawah ya.",
+      "small": 1,
+      "bg": "room",
+      "prop": "confetti",
+      "stage": [
+        {
+          "type": "callout",
+          "title": "Tulis di Kolom Komentar",
+          "sub": "Apa ketakutan terbesarmu saat ini?",
+          "cta": "",
+          "at": "ketakutan"
+        }
+      ],
+      "mascot": "center",
+      "pose": "think"
     }
   ],
-  "header": true,
-  "charStyle": "block",
+  "header": false,
+  "charStyle": "stick",
   "transitions": [
     "fade",
     "slide-left",
-    "zoom",
-    "wipe"
+    "zoom"
   ],
   "transitionsMode": "cycle",
-  "backgrounds": [
-    "cream"
-  ],
-  "bgMode": "single",
   "bgEvery": 3,
-  "theme": "clean",
+  "theme": "classic",
   "audio": {
     "music": true,
     "sfx": true,

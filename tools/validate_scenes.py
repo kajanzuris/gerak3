@@ -108,8 +108,11 @@ if EX:
         for k in ('charImg', 'charTalkImg'):
             if d.get(k) and not os.path.exists(f'{D}/{d[k]}'): err.append(f"file karakter '{d[k]}' belum ada di {D}/ (upload PNG transparan ke folder itu)")
         if not d.get('charImg'): err.append('charStyle sprite butuh charImg')
+    valid_bgs = {'cream', 'mint', 'sky', 'sunset', 'paper', 'grid', 'dark', 'navy'}
+    if d.get('theme') == 'classic':
+        valid_bgs = valid_bgs | BG
     for n in d.get('backgrounds') or []:
-        if n not in {'cream', 'mint', 'sky', 'sunset', 'paper', 'grid', 'dark', 'navy'}: err.append(f"background '{n}' tidak dikenal")
+        if n not in valid_bgs: err.append(f"background '{n}' tidak dikenal")
     for n in d.get('transitions') or []:
         if n not in {'fade', 'slide-left', 'slide-up', 'zoom', 'wipe', 'none'}: err.append(f"transisi '{n}' tidak dikenal")
 

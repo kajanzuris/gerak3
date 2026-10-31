@@ -1,0 +1,103 @@
+{
+  "style": "explainer",
+  "brand": "NamaBrandSaya",
+  "tag": "dasar · AI agent",
+  "accent": "#e5252a",
+  "char": "robot",
+  "charColor": "#222222",
+  "cta": "Link-nya di bio",
+  "scenes": [
+    {
+      "start": 0,
+      "title": "Ada satu hal yang jarang diomongin orang soal mulai *jualan.*",
+      "small": 3,
+      "mascot": "center",
+      "pose": "point",
+      "stage": []
+    },
+    {
+      "start": 4.1,
+      "title": "Ini bukan cuma soal *untung,*",
+      "small": 3,
+      "mascot": "left",
+      "stage": []
+    },
+    {
+      "start": 5.9,
+      "title": "tapi soal gimana rasanya *tangan* *gemetaran*",
+      "small": 2,
+      "stage": []
+    },
+    {
+      "start": 8.4,
+      "title": "pas mau *unggah* *foto* produk yang pertama.",
+      "small": 2,
+      "stage": []
+    },
+    {
+      "start": 11.3,
+      "title": "Kayak *tunas* yang lagi berusaha nembus tanah yang keras,",
+      "small": 2,
+      "stage": []
+    },
+    {
+      "start": 15.1,
+      "title": "rasa *takut* yang kamu rasain itu tandanya",
+      "small": 3,
+      "mascot": "right",
+      "stage": []
+    },
+    {
+      "start": 18,
+      "title": "kamu lagi *bertumbuh,* lho.",
+      "small": 2,
+      "mascot": "left",
+      "stage": []
+    },
+    {
+      "start": 19.7,
+      "title": "Coba deh *bagikan* pesan ini ke teman kamu",
+      "small": 2,
+      "stage": []
+    },
+    {
+      "start": 22.6,
+      "title": "yang sekiranya lagi butuh *keberanian.*",
+      "small": 2,
+      "stage": []
+    },
+    {
+      "start": 24.5,
+      "title": "Terus, ceritain juga dong satu *ketakutan* kamu di bawah ya.",
+      "small": 3,
+      "stage": [
+        {
+          "type": "callout",
+          "title": "Terus, ceritain juga dong",
+          "sub": "NamaBrandSaya",
+          "cta": ""
+        }
+      ]
+    }
+  ],
+  "header": true,
+  "charStyle": "block",
+  "transitions": [
+    "fade",
+    "slide-left",
+    "zoom",
+    "wipe"
+  ],
+  "transitionsMode": "cycle",
+  "backgrounds": [
+    "cream"
+  ],
+  "bgMode": "single",
+  "bgEvery": 3,
+  "theme": "clean",
+  "audio": {
+    "music": true,
+    "sfx": true,
+    "blockSfx": true
+  }
+}

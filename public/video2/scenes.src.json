@@ -1,0 +1,100 @@
+{
+  "style": "explainer",
+  "tag": "dasar · AI agent",
+  "accent": "#ec4899",
+  "char": "robot",
+  "charColor": "#222222",
+  "scenes": [
+    {
+      "start": 0,
+      "small": 3,
+      "title": "Ada satu hal yang jarang *diomongin* orang soal mulai *jualan.*",
+      "mascot": "center",
+      "pose": "wave",
+      "stage": []
+    },
+    {
+      "start": 4.1,
+      "small": 0,
+      "title": "Ini bukan cuma soal *untung,*",
+      "stage": []
+    },
+    {
+      "start": 5.9,
+      "small": 2,
+      "title": "tapi soal gimana rasanya tangan *gemetaran*",
+      "stage": []
+    },
+    {
+      "start": 8.4,
+      "small": 3,
+      "title": "pas mau unggah foto *produk* yang *pertama.*",
+      "stage": []
+    },
+    {
+      "start": 11.3,
+      "small": 2,
+      "title": "Kayak *tunas* yang lagi berusaha nembus tanah yang *keras,*",
+      "stage": []
+    },
+    {
+      "start": 15.1,
+      "small": 3,
+      "title": "rasa takut yang kamu rasain itu tandanya kamu lagi *bertumbuh,* lho.",
+      "mascot": "center",
+      "pose": "cheer",
+      "stage": []
+    },
+    {
+      "start": 19.7,
+      "small": 2,
+      "title": "Coba deh *bagikan* pesan ini ke *teman* kamu",
+      "stage": []
+    },
+    {
+      "start": 22.6,
+      "small": 3,
+      "title": "yang sekiranya lagi butuh *keberanian.*",
+      "stage": []
+    },
+    {
+      "start": 24.5,
+      "small": 3,
+      "title": "Terus, *ceritain* juga dong satu *ketakutan* kamu di bawah ya.",
+      "mascot": "left",
+      "pose": "point",
+      "stage": [
+        {
+          "type": "callout",
+          "title": "Terus, ceritain juga dong",
+          "sub": "",
+          "cta": ""
+        }
+      ]
+    }
+  ],
+  "header": false,
+  "charStyle": "stick",
+  "transitions": [
+    "fade",
+    "slide-left",
+    "slide-up",
+    "zoom"
+  ],
+  "transitionsMode": "random",
+  "backgrounds": [
+    "cream",
+    "mint",
+    "sunset",
+    "paper",
+    "grid",
+    "navy"
+  ],
+  "bgMode": "auto",
+  "bgEvery": 1,
+  "audio": {
+    "music": true,
+    "sfx": true,
+    "blockSfx": true
+  }
+}

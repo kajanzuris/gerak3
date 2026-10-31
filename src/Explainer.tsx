@@ -609,20 +609,20 @@ const Headline: React.FC<{ ws: W[]; small: number; solo?: boolean }> = ({ ws, sm
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
   const big = ws.slice(small);
-  const bigSize = Math.round((big.length <= 3 ? 124 : big.length <= 5 ? 100 : big.length <= 8 ? 82 : 68) * (solo ? 1.25 : 1));
+  const bigSize = Math.round((big.length <= 3 ? 88 : big.length <= 5 ? 76 : big.length <= 8 ? 64 : 54) * (solo ? 1.08 : 1));
   const line = (arr: W[], size: number, weight: number, base: string) => (
-    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: `0 ${size * 0.28}px`, fontSize: size, fontWeight: weight, lineHeight: 1.15, textTransform: hudTheme ? "uppercase" : undefined }}>
+    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: `0 ${size * 0.26}px`, fontSize: size, fontWeight: weight, lineHeight: 1.18, textTransform: hudTheme ? "uppercase" : undefined }}>
       {arr.map((w, i) => {
         const s = clamp01(spring({ frame: frame - Math.round(w.a * fps), fps, config: { damping: 14, stiffness: 200 } }));
         return (
-          <span key={i} style={{ display: "inline-block", opacity: s > 0.02 ? clamp01(s * 2) : 0, transform: `translateY(${(1 - s) * 24}px)`, color: w.hl ? accent : base, textShadow: hudTheme && w.hl ? `0 0 22px ${accent}aa` : undefined }}>{w.w}</span>
+          <span key={i} style={{ display: "inline-block", opacity: s > 0.02 ? clamp01(s * 2) : 0, transform: `translateY(${(1 - s) * 20}px)`, color: w.hl ? accent : base, textShadow: hudTheme && w.hl ? `0 0 22px ${accent}aa` : undefined }}>{w.w}</span>
         );
       })}
     </div>
   );
   return (
     <>
-      {small > 0 ? line(ws.slice(0, small), solo ? 68 : 56, 600, mute) : null}
+      {small > 0 ? line(ws.slice(0, small), solo ? 50 : 42, 600, mute) : null}
       {line(big, bigSize, 800, ink)}
     </>
   );
@@ -690,7 +690,7 @@ const HudCaption: React.FC<{ words: W[]; t: number; accent: string }> = ({ words
   const g = groups[gi];
   if (t > g[g.length - 1].b + 0.6) return null;
   return (
-    <div style={{ position: "absolute", left: 70, right: 70, top: 1535, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "4px 20px", padding: "22px 30px", borderRadius: 30, background: "rgba(5,15,35,.78)", border: `2px solid ${accent}99`, boxShadow: `0 0 26px ${accent}44, inset 0 0 18px ${accent}18`, fontWeight: 800, fontSize: 56, lineHeight: 1.2, color: "#fff" }}>
+    <div style={{ position: "absolute", left: 70, right: 70, top: 1535, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "4px 18px", padding: "20px 28px", borderRadius: 30, background: "rgba(5,15,35,.82)", border: `2px solid ${accent}99`, boxShadow: `0 0 26px ${accent}44, inset 0 0 18px ${accent}18`, fontWeight: 800, fontSize: 48, lineHeight: 1.2, color: "#fff" }}>
       {g.map((w, i) => {
         const active = t >= w.a && t < w.b;
         const spoken = t >= w.b;
@@ -741,12 +741,12 @@ const ClassicCaption: React.FC<{ words: W[]; t: number; accent: string }> = ({ w
   if (t > g[g.length - 1].b + 0.6) return null;
   const sp = clamp01(spring({ frame: frame - Math.round(g[0].a * fps), fps, config: { damping: 13, stiffness: 190 } }));
   return (
-    <div style={{ position: "absolute", left: 70, right: 70, top: 300, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "4px 22px", padding: "26px 36px", borderRadius: 48, background: "rgba(10,12,24,.62)", transform: `scale(${0.88 + 0.12 * sp})`, opacity: 0.35 + 0.65 * sp }}>
+    <div style={{ position: "absolute", left: 60, right: 60, top: 180, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "4px 18px", padding: "18px 28px", borderRadius: 36, background: "rgba(10,12,24,.75)", transform: `scale(${0.92 + 0.08 * sp})`, opacity: 0.35 + 0.65 * sp, boxShadow: "0 10px 30px rgba(0,0,0,.4)" }}>
       {g.map((w, i) => {
         const active = t >= w.a && t < w.b;
         const spoken = t >= w.b;
         return (
-          <span key={i} style={{ display: "inline-block", fontWeight: 800, fontSize: w.hl ? 90 : 74, lineHeight: 1.25, color: w.hl ? accent : "#fff", opacity: spoken || active ? 1 : 0.55, transform: `scale(${active ? 1.12 : 1})`, textShadow: "0 4px 18px rgba(0,0,0,.7)" }}>{w.w}</span>
+          <span key={i} style={{ display: "inline-block", fontWeight: 800, fontSize: w.hl ? 56 : 48, lineHeight: 1.22, color: w.hl ? accent : "#fff", opacity: spoken || active ? 1 : 0.55, transform: `scale(${active ? 1.08 : 1})`, textShadow: "0 3px 14px rgba(0,0,0,.8)" }}>{w.w}</span>
         );
       })}
     </div>
@@ -837,14 +837,14 @@ export const Explainer: React.FC<StoryProps> = ({ name, data: d }) => {
       <Ctx.Provider key={"L" + i} value={{ ws: wsI, base: s.start, t, accent, name, ink: data.textColor || (hud ? "#ffffff" : p.ink), mute: data.textColor || (hud ? "#9fb3d1" : classic ? "#c4c9d8" : p.mute), theme: hud ? "hud" : classic ? "classic" : "clean" }}>
         <div style={{ position: "absolute", left: 0, top: 0, width: 1080, height: 1920, ...wrap }}>
           {classic ? null : (
-            <div style={{ position: "absolute", left: 50, right: 50, top: solo ? 420 : hud ? 150 : 190 + dy, height: solo ? 800 : 300, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 10, textAlign: "center" }}>
+            <div style={{ position: "absolute", left: 50, right: 50, top: solo ? 460 : hud ? 150 : 190 + dy, height: solo ? 520 : 300, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 10, textAlign: "center" }}>
               <Headline ws={wsI} small={sm} solo={solo} />
             </div>
           )}
           {classic && s.prop && CLASSIC_PROPS.includes(s.prop) && typeof Prop !== "undefined" ? (
             <Prop kind={s.prop} f={frame} hx={s.mascot === "left" ? 300 : s.mascot === "right" ? 780 : 540} accent={accent} />
           ) : null}
-          <div style={{ position: "absolute", left: 60, right: 60, top: classic ? 540 : hud ? (hm ? 480 : 500) : (hm ? 500 : 520) + dy, bottom: classic ? (hm ? 920 : 300) : hud ? (hm ? 790 : 440) : (hm ? 520 : 200), display: "flex", flexDirection: "column", justifyContent: "center", gap: 28 }}>
+          <div style={{ position: "absolute", left: 60, right: 60, top: classic ? (hm ? 420 : 360) : hud ? (hm ? 480 : 500) : (hm ? 500 : 520) + dy, bottom: classic ? (hm ? 840 : 260) : hud ? (hm ? 790 : 440) : (hm ? 520 : 200), display: "flex", flexDirection: "column", justifyContent: "center", gap: 28 }}>
             {(s.stage || []).map((b, bi) => <StageItem key={bi} b={b} i={bi} />)}
           </div>
         </div>
